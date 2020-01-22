@@ -1,0 +1,434 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Answer API",
+        "version": "1.0.0"
+    },
+    "basePath": "/api",
+    "paths": {
+        "/commands/create-answer": {
+            "post": {
+                "tags": [
+                    "Answers"
+                ],
+                "parameters": [
+                    {
+                        "parameter": "answer_in_body",
+                        "name": "answer",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Answer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Create a problem answer"
+                    }
+                }
+            }
+        },
+        "/commands/delete-answer": {
+            "delete": {
+                "tags": [
+                    "Answers"
+                ],
+                "parameters": [
+                    {
+                        "name": "answer_id",
+                        "in": "body",
+                        "description": "UUID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deletes an answer"
+                    }
+                }
+            }
+        },
+        "/commands/answer-choice-changed": {
+            "patch": {
+                "tags": [
+                    "Answers"
+                ],
+                "parameters": [
+                    {
+                        "name": "answer_id",
+                        "in": "body",
+                        "description": "UUID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "correct",
+                        "in": "body",
+                        "description": "Correct status of an answer to be set",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Set an answer is correct or not"
+                    }
+                }
+            }
+        },
+        "/commands/change-answer-text": {
+            "patch": {
+                "tags": [
+                    "Answers"
+                ],
+                "parameters": [
+                    {
+                        "name": "answer_id",
+                        "in": "body",
+                        "description": "UUID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "text",
+                        "in": "body",
+                        "description": "Content of an answer to be set",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Set the text of an answer"
+                    }
+                }
+            }
+        },
+        "/commands/change-answer-sequence": {
+            "patch": {
+                "tags": [
+                    "Answers"
+                ],
+                "parameters": [
+                    {
+                        "name": "answer_id",
+                        "in": "body",
+                        "description": "UUID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sequence",
+                        "in": "body",
+                        "description": "Sequence of an answer to be set",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Set the sequence of an answer"
+                    }
+                }
+            }
+        },
+        "/answer": {
+            "get": {
+                "tags": [
+                    "Answers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all answers"
+                    }
+                }
+            }
+        },
+        "/commands/create-category": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "parameters": [
+                    {
+                        "parameter": "category_in_body",
+                        "name": "category",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Category"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Create a category"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all categories"
+                    }
+                }
+            }
+        },
+        "/commands/create-lesson": {
+            "post": {
+                "tags": [
+                    "Lessons"
+                ],
+                "parameters": [
+                    {
+                        "parameter": "lesson_in_body",
+                        "name": "Lesson",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Lesson"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Create a lesson"
+                    }
+                }
+            }
+        },
+        "/lessons": {
+            "get": {
+                "tags": [
+                    "Lessons"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "get page of lessons",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search in lessons",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "query",
+                        "description": "filter the lessons by course",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "subject_id",
+                        "in": "query",
+                        "description": "filter by subject_id",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "after_date",
+                        "in": "query",
+                        "description": "filter by created at date after date provided",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "before_date",
+                        "in": "query",
+                        "description": "filter by created at date before date provided",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "active",
+                        "in": "query",
+                        "description": "filter by active or inactive lessons",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Lesson"
+                    }
+                }
+            }
+        },
+        "/commands/update-lesson-reference-id": {
+            "patch": {
+                "tags": [
+                    "Lessons"
+                ],
+                "parameters": [
+                    {
+                        "parameter": "lesson_in_body",
+                        "name": "Lesson",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/UpdateLessonReferenceId"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Update the lesson reference id"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Answer": {
+            "required": [
+                "text",
+                "answer_type_id",
+                "correct",
+                "problem_id",
+                "sequence"
+            ],
+            "properties": {
+                "text": {
+                    "description": "The conten of an answer",
+                    "type": "string"
+                },
+                "answer_type_id": {
+                    "description": "uuid",
+                    "type": "string"
+                },
+                "correct": {
+                    "description": "Correct status of an answer",
+                    "type": "boolean"
+                },
+                "problem_id": {
+                    "description": "uuid",
+                    "type": "string"
+                },
+                "sequence": {
+                    "description": "The order of the answers starting at 1",
+                    "type": "integer"
+                }
+            }
+        },
+        "Category": {
+            "required": [
+                "name",
+                "subject_id"
+            ],
+            "properties": {
+                "name": {
+                    "description": "Class CategoryController",
+                    "type": "string"
+                },
+                "subject_id": {
+                    "description": "uuid",
+                    "type": "string"
+                }
+            }
+        },
+        "Lesson": {
+            "required": [],
+            "properties": {
+                "reference_id": {
+                    "description": "Class LessonController",
+                    "type": "string"
+                },
+                "lesson_type_id": {
+                    "description": "Class LessonController",
+                    "type": "string"
+                },
+                "sequence": {
+                    "description": "Class LessonController",
+                    "type": "integer"
+                },
+                "subject_id": {
+                    "description": "Class LessonController",
+                    "type": "string"
+                },
+                "unit_id": {
+                    "description": "Class LessonController",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Class LessonController",
+                    "type": "string"
+                },
+                "multi_line_title": {
+                    "description": "Class LessonController",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Class LessonController",
+                    "type": "string"
+                },
+                "start_page": {
+                    "description": "Class LessonController",
+                    "type": "integer"
+                },
+                "ending_page": {
+                    "description": "Class LessonController",
+                    "type": "integer"
+                },
+                "challenge_page": {
+                    "description": "Class LessonController",
+                    "type": "integer"
+                },
+                "practice_page": {
+                    "description": "Class LessonController",
+                    "type": "integer"
+                },
+                "drill_page": {
+                    "description": "Class LessonController",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "Class LessonController",
+                    "type": "boolean"
+                }
+            }
+        },
+        "UpdateLessonReferenceId": {
+            "required": [],
+            "properties": {
+                "lesson_id": {
+                    "description": "Class LessonController",
+                    "type": "string"
+                },
+                "lesson_reference_id": {
+                    "description": "Class LessonController",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Answers",
+            "description": "Answers apis"
+        },
+        {
+            "name": "Category",
+            "description": "Category apis"
+        },
+        {
+            "name": "Lessons",
+            "description": "All of the Lessons"
+        }
+    ]
+}
